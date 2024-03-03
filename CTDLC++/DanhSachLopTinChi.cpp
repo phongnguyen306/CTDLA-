@@ -28,6 +28,7 @@ struct LopTinChi
 		this->Nhom = Nhom;
 		this->SoSVMin = 10;
 		this->SoSVMax = 100;
+		DSDK = new DanhSachDangKy;
 	}
 };
 
@@ -55,22 +56,21 @@ struct DanhSachLopTinChi
 		}
 
     	if (SoLuongLop >= 10000) {
-    	    return false;  // Danh sách đã đầy
+    	    return false;
     	}
 
-    	DanhSach[SoLuongLop++] = lopMoi;  // Thêm đối tượng lớp mới vào danh sách
+    	DanhSach[SoLuongLop++] = lopMoi;  
     	return true;
 	}
 
 
 
-	LopTinChi* TimLopTinChi(int MALOPTC) 
+	LopTinChi* TimLopTinChi(int MALOPTC ) 
 	{
 
-  	// Duyệt qua danh sách lớp tín chỉ và tìm kiếm lớp phù hợp
   		for (int i = 0; i < SoLuongLop; i++) 
 		{
-    		if (MALOPTC = DanhSach[i]->MALOPTC) 
+    		if (MALOPTC == DanhSach[i]->MALOPTC) 
 			{
       			return DanhSach[i];
     		}

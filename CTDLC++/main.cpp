@@ -11,6 +11,7 @@
 DanhSachMonHoc* docFileDanhSachMonHoc(DanhSachMonHoc* DSMH);
 DanhSachSinhVien* docFileDanhSachSinhVien(DanhSachSinhVien* DSSV);
 DanhSachLopTinChi* docFileDanhSachLopTinChi(DanhSachLopTinChi* DSLTC);
+void docFileDanhSachDangKy(DanhSachLopTinChi* DSLTC);
 
 int main()
 {
@@ -19,13 +20,22 @@ int main()
     DSMH = docFileDanhSachMonHoc(DSMH);
     DanhSachSinhVien *DSSV; 
     DSSV = docFileDanhSachSinhVien(DSSV);
-    DanhSachLopTinChi *DSLCT;
-    DSLCT = docFileDanhSachLopTinChi(DSLCT);
-    DSLCT->inDanhSachLopTinChi(DSMH);
+    DanhSachLopTinChi *DSLTC;
+    DSLTC = docFileDanhSachLopTinChi(DSLTC);
+    docFileDanhSachDangKy(DSLTC);
+
+    LopTinChi* lop1 = DSLTC->TimLopTinChi(1);
+    lop1->DSDK->inDanhSach();
+
+    LopTinChi* lop2 = DSLTC->TimLopTinChi(2);
+    lop2->DSDK->inDanhSach();
+
+    LopTinChi* lop3 = DSLTC->TimLopTinChi(3);
+    lop3->DSDK->inDanhSach();
 
     delete DSMH;
     delete DSSV;
-    delete DSLCT;
+    delete DSLTC;
 
     return 0;
     
@@ -132,7 +142,6 @@ DanhSachLopTinChi* docFileDanhSachLopTinChi(DanhSachLopTinChi* DSLTC)
         loptc.SoSVMin = stoi(chuoi[5]);
         loptc.SoSVMax = stoi(chuoi[6]);
         loptc.HuyLop = stoi(chuoi[7]);
-        loptc.DSDK = nullptr;
 
         DSLTC->ThemLopTinChi(loptc);
         
@@ -140,6 +149,42 @@ DanhSachLopTinChi* docFileDanhSachLopTinChi(DanhSachLopTinChi* DSLTC)
     infile.close();
     return DSLTC;
 }
+
+void docFileDanhSachDangKy(DanhSachLopTinChi* DSLTC)
+{
+    ifstream infile;
+    infile.open("data\\danhSachDangKy.txt", ios::in);
+    string data;
+    if(!infile)
+    {
+        cout << "Khong Tim Thay File" << endl;
+        return;
+    }
+    while (infile.good())
+    {
+        DangKy dk;
+        getline(infile, data);
+        if(data.size() == 0){break;}
+        stringstream ss(data);
+        string tmp;
+        vector<string> chuoi;
+
+        while (getline(ss,tmp,'@'))
+            chuoi.push_back(tmp);
+        
+        LopTinChi* loptinchi = DSLTC->TimLopTinChi(stoi(chuoi[0]));
+        
+        dk.MASV = chuoi[1];
+        dk.DIEM = stoi(chuoi[2]);
+        dk.huyDangKy = 0;
+
+        loptinchi->DSDK->themCuoi(dk);
+    }
+
+    infile.close();    
+    return;    
+}
+
 // int main()
 // {
 //     //----thao tac file-------
