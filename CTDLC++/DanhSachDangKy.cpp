@@ -2,8 +2,6 @@
 #include <iostream>
 #include <string>
 
-//#include "loptinchi.cpp"
-
 using namespace std;
 struct DangKy
 {
@@ -92,6 +90,7 @@ struct DanhSachDangKy {
         temp->next = nullptr;
         delete lastNode;
     }
+
 
     // Tìm kiếm node theo MASV
     DangKy* timKiem(string MASV) {

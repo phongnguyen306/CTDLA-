@@ -30,6 +30,17 @@ struct LopTinChi
 		this->SoSVMax = 100;
 		DSDK = new DanhSachDangKy;
 	}
+	LopTinChi(string MAMH,int NienKhoa, int HocKy, int Nhom, int max, int min)
+	{
+		this->MALOPTC = 0;
+		this->MAMH = MAMH;
+		this->NienKhoa = NienKhoa;
+		this->HocKy = HocKy;
+		this->Nhom = Nhom;
+		this->SoSVMin = min;
+		this->SoSVMax = max;
+		DSDK = new DanhSachDangKy;
+	}
 };
 
 struct DanhSachLopTinChi
@@ -41,51 +52,160 @@ struct DanhSachLopTinChi
 		this->SoLuongLop = 0;
 	}
 
-	bool ThemLopTinChi(LopTinChi lop) 
+	bool ThemLopTinChi(DanhSachLopTinChi* DSLTC, LopTinChi* lop) 
 	{
-		LopTinChi* lopMoi = new LopTinChi(lop.MAMH, lop.HocKy, lop.Nhom);
-
-		if(lop.MALOPTC != 0)
-		{
-			MALOP = lop.MALOPTC;
-			lopMoi->MALOPTC = MALOP;
-		}
-		else
-		{
-    		lopMoi->MALOPTC = ++MALOP;
+		if (SoLuongLop >= 10000) {
+			return false;
 		}
 
-    	if (SoLuongLop >= 10000) {
-    	    return false;
-    	}
+		LopTinChi* lopMoi = new LopTinChi(lop->MAMH,lop->NienKhoa, lop->HocKy, lop->Nhom, lop->SoSVMax, lop->SoSVMin);
+		if (lop->MALOPTC != 0) 
+			lopMoi->MALOPTC = lop->MALOPTC;
+		else 
+			lopMoi->MALOPTC = ++MALOP;
 
-    	DanhSach[SoLuongLop++] = lopMoi;  
-    	return true;
+		int i = SoLuongLop - 1;
+		while (i >= 0 && DSLTC->DanhSach[i]->MALOPTC > lopMoi->MALOPTC) {
+			DanhSach[i + 1] = DanhSach[i]; 
+			i--;
+		}
+		DanhSach[i + 1] = lopMoi;
+
+		SoLuongLop++;
+
+		return true;
 	}
 
 
 
-	LopTinChi* TimLopTinChi(int MALOPTC ) 
+	LopTinChi* TimLopTinChi(int MALOPTC)
 	{
+    int left = 0, right = SoLuongLop - 1;
 
-  		for (int i = 0; i < SoLuongLop; i++) 
-		{
-    		if (MALOPTC == DanhSach[i]->MALOPTC) 
-			{
-      			return DanhSach[i];
-    		}
-  		}
- 		
-		return nullptr;
+    while (left <= right) 
+	{
+        int mid = (left + right) / 2;
+
+        if (MALOPTC == DanhSach[mid]->MALOPTC) {
+            return DanhSach[mid];
+        } else if (MALOPTC < DanhSach[mid]->MALOPTC) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return nullptr;
+	}	
+
+	LopTinChi* TimLopTinChiTheoMAMH(string MAMH, int HocKy, int Nhom) 
+	{
+   		for (int i = 0; i < SoLuongLop; ++i) 
+		{	
+        	if (MAMH == DanhSach[i]->MAMH && HocKy == DanhSach[i]->HocKy && Nhom == DanhSach[i]->Nhom)
+        		return DanhSach[i];
+    	}
+    	return nullptr;
 	}
 
 	void inDanhSachLopTinChi(DanhSachMonHoc *root)
 	{
 		for(int i = 0; i < SoLuongLop; i++)
 		{
-			cout << DanhSach[i]->MALOPTC << " " << DanhSach[i]->MAMH <<" "<< TimKiemTheoMAMH(root,DanhSach[i]->MAMH)->data.TENMH << endl;
+			cout << DanhSach[i]->MALOPTC << " " << DanhSach[i]->MAMH <<" "<< TimKiemTheoMAMH(root,DanhSach[i]->MAMH)->data.TENMH <<DanhSach[i]->SoSVMax  <<" "<< DanhSach[i]->SoSVMin <<" "<<DanhSach[i]->HuyLop<< endl;
 		}
 	}
+
+	void xoaLopTinChi(int MALOPTC)
+	{
+		LopTinChi* lop = TimLopTinChi(MALOPTC);
+		if(lop == nullptr)
+		{
+			cout << "Lop Tin Chi Khong Ton Tai" << endl;
+			return;
+		}
+		else
+		{
+			bool check = false;
+			int left = 0, right = SoLuongLop - 1;
+
+    		while (left <= right) 
+			{
+        		int mid = (left + right) / 2;
+        		if (MALOPTC == DanhSach[mid]->MALOPTC) 
+				{	
+					delete(DanhSach[mid]->DSDK);
+					
+					int j = mid;
+					while(j < SoLuongLop - 1)
+					{
+					DanhSach[j] = DanhSach[j+1];
+					j++;
+					}
+
+					delete(DanhSach[mid]);
+					DanhSach[j] = nullptr;
+
+					check = true;
+					break;
+        		} 
+				else if (MALOPTC < DanhSach[mid]->MALOPTC) 
+				{
+            		right = mid - 1;
+        		} 
+				else 
+				{
+            		left = mid + 1;
+        		}
+			}
+			if(check)
+				cout << "Xoa Lop Thanh Cong"<< endl;
+			SoLuongLop--;
+			return;
+		}
+	}
+
+	void hieuChinhLopTinChi(DanhSachLopTinChi* DSLTC, int malop)
+	{
+		LopTinChi* lop1 = DSLTC->TimLopTinChi(malop);
+        DSLTC->xoaLopTinChi(malop);
+        if(lop1 != NULL)
+        {
+            cout << lop1->MALOPTC << " " << lop1->MAMH << " " << lop1->NienKhoa<< endl;
+			cout << "\tBan muon chi gi?\n\t1. Thay doi mon hoc\n\t2. So luong max min\n\t3. Thoat!\n";
+			int i; cin >> i;
+			switch (i)
+			{
+				case 1:
+				{
+					cout <<"Nhap ma mon hoc muon doi: ";
+					string mamh; cin.ignore(); getline(cin, mamh);
+					lop1->MAMH = mamh;
+					DSLTC->ThemLopTinChi(DSLTC, lop1);
+					break;
+				}
+				case 2:
+				{
+					cout << lop1->SoSVMax << " " << lop1->SoSVMin << endl;
+					cout <<"Theo thu tu nhap max min: ";
+					int max, min; cin >> max; cin >> min;
+					lop1->SoSVMax = max;
+					lop1->SoSVMin = min;
+					cout << lop1->SoSVMax << " " << lop1->SoSVMin << endl;
+					DSLTC->ThemLopTinChi(DSLTC, lop1);
+					break;
+				}
+				case 3:
+				{
+					return;
+				}
+				default:
+					break;
+			}
+        }
+
+		return;
+	}
+
 };
 
 // DanhSachLopTinChi dsLopTinChi;

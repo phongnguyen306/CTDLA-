@@ -62,6 +62,7 @@
     "fstream": "cpp",
     "sstream": "cpp",
     "ostream": "cpp",
-    "new": "cpp"
+    "new": "cpp",
+    "string_view": "cpp"
   }
 }

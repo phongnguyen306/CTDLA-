@@ -57,21 +57,6 @@ struct DanhSachSinhVien
 
 		Node* temp = head;
 		Node* tempp;
-		// do
-		// {
-		// 	if (CheckForInsert(newSv, temp->sv))
-		// 	{
-		// 		AddNodeAtTail(temp, newSv);
-		// 		return;
-		// 	}
-
-		// 	temp = temp->next;
-		// } while (temp->next != nullptr);
-		// if (CheckForInsert(newSv, temp->sv))
-		// 	{
-		// 		AddNodeAtTail(temp, newSv);
-		// 		return;
-		// 	}
 		
 		while (temp !=nullptr)
 		{
@@ -115,6 +100,21 @@ struct DanhSachSinhVien
 			temp = temp->next;
 		}
 	}
+
+	void DeleteFirstNode() {
+    if (head == nullptr) {
+        return;
+    }
+
+    Node* temp = head;
+
+    head = head->next;
+
+    delete temp;
+
+    soLuong--;
+	return;
+}
 
 
 };
