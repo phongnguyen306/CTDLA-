@@ -37,14 +37,7 @@ struct DanhSachDangKy {
         head = nullptr;
     }
 
-    // Thêm vào đầu danh sách
-    void themDau(DangKy dataDK) {
-        Node* newNode = new Node(dataDK);
-        newNode->next = head;
-        head = newNode;
-    }
 
-    // Thêm vào cuối danh sách
     void themCuoi(DangKy dataDK) {
         Node* newNode = new Node(dataDK);
 
@@ -60,7 +53,6 @@ struct DanhSachDangKy {
         temp->next = newNode;
     }
 
-    // Xóa node đầu
     void xoaDau() {
         if (head == nullptr) {
             return;
@@ -71,7 +63,6 @@ struct DanhSachDangKy {
         delete temp;
     }
 
-    // Xóa node cuối
     void xoaCuoi() {
         if (head == nullptr) {
             return;
@@ -92,7 +83,6 @@ struct DanhSachDangKy {
     }
 
 
-    // Tìm kiếm node theo MASV
     DangKy* timKiem(string MASV) {
         Node* temp = head;
         while (temp != nullptr) {
@@ -105,7 +95,6 @@ struct DanhSachDangKy {
         return nullptr;
     }
 
-    // In danh sách
     void inDanhSach() {
         Node* temp = head;
         while (temp != nullptr) {

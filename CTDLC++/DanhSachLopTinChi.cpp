@@ -196,6 +196,7 @@ struct DanhSachLopTinChi
 				}
 				case 3:
 				{
+					DSLTC->ThemLopTinChi(DSLTC, lop1);
 					return;
 				}
 				default:
@@ -207,51 +208,3 @@ struct DanhSachLopTinChi
 	}
 
 };
-
-// DanhSachLopTinChi dsLopTinChi;
-
-// bool ThemLopTinChi(LopTinChi lop)
-// {
-// 	lop.MALOPTC = ++MALOP;
-// 	if (dsLopTinChi.SoLuongLop >= 10000)
-// 	{
-// 		return false;
-// 	}
-
-// 	dsLopTinChi.DanhSach[dsLopTinChi.SoLuongLop++] = &lop;
-// 	return true;
-// }
-
-//int main()
-//{
-//	DanhSachDangKy dssv;
-//	SinhVien sv1;
-//	sv1.MALOP = "D22CQCN02-N";
-//	sv1.HO = "Pham Tien";
-//	sv1.TEN = "Dat";
-//
-//	SinhVien sv2;
-//	sv2.MALOP = "D22CQCN02-N";
-//	sv2.HO = "ABC";
-//	sv2.TEN = "AWSDF";
-//
-//	SinhVien sv3;
-//	sv3.MALOP = "D22CQCN01-N";
-//	sv3.HO = "ABCD";
-//	sv3.TEN = "AWSDF";
-//
-//	dssv.Add(sv1);
-//	dssv.Add(sv2);
-//	dssv.Add(sv3);
-//
-//	LopTinChi lop1("001", "01", 1);
-//	LopTinChi lop2("002", "01", 1);
-//	ThemLopTinChi(lop1);
-//	ThemLopTinChi(lop2);
-//
-//	cout << dsLopTinChi.DanhSach[0]->MALOPTC << " ";
-//	cout << dsLopTinChi.DanhSach[1]->MALOPTC << " ";
-//
-//	return 0;
-//}
-

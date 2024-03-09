@@ -90,6 +90,21 @@ int main()
             }
         //Ket thuc cau a
         }
+        case 2:
+        {
+            cout << "2. In danh sach sinh vien dang ky theo lop tin chi" << endl;\
+            cout << "===Danh Sanh Sinh Vien Dang Ky===" << endl;
+            for (int i = 0; i < DSLTC->SoLuongLop; i++)
+            {
+                cout << DSLTC->DanhSach[i]->NienKhoa << " " << DSLTC->DanhSach[i]->HocKy << " " << DSLTC->DanhSach[i]->Nhom << " " << DSLTC->DanhSach[i]->MAMH << endl <<endl;
+                if(DSLTC->DanhSach[i]->DSDK->head != NULL)
+                    DSLTC->DanhSach[i]->DSDK->inDanhSach();
+                else
+                    cout << "lop khong co sinh vien dang ky!" << endl;
+                cout <<endl;
+            }
+            goto menu;
+        }
         case 5:
             goto thoat;
             break;

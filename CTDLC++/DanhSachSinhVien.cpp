@@ -47,7 +47,6 @@ struct DanhSachSinhVien
 
 	void Add(SinhVien newSv)
 	{
-		// cout << "x1";
 		if (soLuong == 0)
 		{
 			head->sv = newSv;
@@ -76,7 +75,6 @@ struct DanhSachSinhVien
 
 	bool CheckForInsert(SinhVien sv1, SinhVien sv2)
 	{
-		//cout << sv1.TEN << " " << sv2.TEN;
 		if (sv1.MALOP < sv2.MALOP)
 			return true;
 		if (sv1.MALOP > sv2.MALOP) return false;
@@ -119,27 +117,3 @@ struct DanhSachSinhVien
 
 };
 
-// int main() {
-// 	DanhSachSinhVien dssv;
-// 	SinhVien sv1;
-// 	sv1.MALOP = "D22CQCN02-N";
-// 	sv1.HO = "Pham Tien";
-// 	sv1.TEN = "Dat";
-
-// 	SinhVien sv2;
-// 	sv2.MALOP = "D22CQCN02-N";
-// 	sv2.HO = "Nguyen";
-// 	sv2.TEN = "Phong";
-
-// 	SinhVien sv3;
-// 	sv3.MALOP = "D22CQCN02-N";
-// 	sv3.HO = "Tran";
-// 	sv3.TEN = "Vu";
-
-// 	dssv.Add(sv1);
-// 	dssv.Add(sv2);
-// 	dssv.Add(sv3);
-// 	dssv.InDSSV();
-
-// 	return 0;
-// }
