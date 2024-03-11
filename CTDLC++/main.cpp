@@ -178,7 +178,8 @@ int main()
     ghiFileDanhSachDangKy(DSLTC);
     delete DSMH;
     delete DSSV;
-    delete DSLTC;   
+    delete DSLTC;
+        //abc   
     return 0;
     
 }
