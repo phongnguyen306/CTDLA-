@@ -18,7 +18,7 @@ int main()
         << "3. Nhap sinh vien" << endl
         << "4. " << endl
         << "5. Cap Nhat Mon Hoc." << endl
-       << "0. Thoat! " << endl; 
+        << "0. Thoat! " << endl; 
     int i; cin >> i;
 
     switch (i)
@@ -149,7 +149,7 @@ int main()
                     
                 }
                 case 0:
-                    goto capnhatmonhoc;
+                    goto capnhatmonhoc;     
                 default:
                     break;
                 }
