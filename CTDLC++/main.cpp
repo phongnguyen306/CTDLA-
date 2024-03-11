@@ -17,7 +17,8 @@ int main()
         << "2. In danh sach sinh vien dang ky theo lop tin chi" << endl
         << "3. Nhap sinh vien" << endl
         << "4. " << endl
-        << "5.Thoat " << endl;
+        << "5. Cap Nhat Mon Hoc." << endl
+       << "0. Thoat! " << endl; 
     int i; cin >> i;
 
     switch (i)
@@ -106,6 +107,55 @@ int main()
             goto menu;
         }
         case 5:
+        {
+        capnhatmonhoc: 
+            printTree(DSMH);
+            cout << "Ban muon lam gi? \n\t1. Them mon\n\t2. Xoa mon\n\t3. Hieu chinh\n\t0. Thoat!\n";
+            int tmp; cin >> tmp;
+            switch (tmp)
+            {
+                case 1:
+                {   
+                    MH MHmoi;
+                    
+                    string mamh, tenmh;
+                    cout <<"Nhap MAMH: ";
+                    cin.ignore(); getline(cin, mamh);
+                    cout << "Nhap tenmh; ";
+                    cin.ignore(); getline(cin, tenmh);
+                    int sotcll, sotcth;
+                    cout << "Nhap sotcll: ";
+                    cin >> sotcll;
+                    cout << "Nhap sotcth: ";
+                    cin >> sotcth;
+
+                    MHmoi.MAMH = mamh;
+                    MHmoi.TENMH = tenmh;
+                    MHmoi.STCLT = sotcll;
+                    MHmoi.STCTH = sotcth;
+
+                    DSMH = insertDanhSachMonHoc(DSMH, MHmoi);
+
+                    cout <<"Them Lop Thanh Cong!" << endl;
+
+                    printTree(DSMH);
+
+                    goto capnhatmonhoc;
+                    break;
+                }
+                case 2:
+                {
+                    string mamh; cin.ignore(); getline(cin, mamh);
+                    
+                }
+                case 0:
+                    goto capnhatmonhoc;
+                default:
+                    break;
+                }
+            break;
+        }
+        case 0:
             goto thoat;
             break;
         default:
@@ -129,7 +179,7 @@ int main()
     delete DSMH;
     delete DSSV;
     delete DSLTC;
-
+    //ABC
     return 0;
     
 }
