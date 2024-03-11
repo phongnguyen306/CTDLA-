@@ -80,7 +80,7 @@ int main()
                     goto capnhat;
                 }
                 case 4:
-                {
+                { 
                     goto menu;
                     break;
                 }
@@ -146,6 +146,7 @@ int main()
                 case 2:
                 {
                     string mamh; cin.ignore(); getline(cin, mamh);
+                    d
                     
                 }
                 case 0:
