@@ -110,7 +110,7 @@ int main()
         {
         capnhatmonhoc: 
             printTree(DSMH);
-            cout << "Ban muon lam gi? \n\t1. Them mon\n\t2. Xoa mon\n\t3. Hieu chinh\n\t0. Thoat!\n";
+            cout << "\t===5. Cap nhat mon hoc===\nBan muon lam gi? \n\t1. Them mon\n\t2. Xoa mon\n\t3. Hieu chinh\n\t0. Thoat!\n";
             int tmp; cin >> tmp;
             switch (tmp)
             {
@@ -146,11 +146,40 @@ int main()
                 case 2:
                 {
                     string mamh; cin.ignore(); getline(cin, mamh);
-                    d
-                    
+                    for(int i = 1; i < 4; i++)
+                        for(int j = 1; j < 11; j++)
+                            if(DSLTC->TimLopTinChiTheoMAMH(mamh,i,j) != NULL)
+                            {
+                                cout << "Mon hoc nay da co lop tin chi hay chinh lop tc truoc khi xoa! ";
+                                goto capnhatmonhoc;
+                            }
+                    DSMH = deleteNode(DSMH,mamh);
+                    printTree(DSMH);
+                    goto capnhatmonhoc;
+                }
+                case 3:
+                {
+                    cout << "Nhap mamh can hieu chinh: ";
+                    string mamh; cin.ignore(); getline(cin, mamh);
+                    MH mhhc = TimKiemTheoMAMH(DSMH, mamh)->data;
+                    cout << mhhc.MAMH << " " << mhhc.TENMH << " " << mhhc.STCLT << " " << mhhc.STCTH << endl;
+                    string mmh, tenmh;
+                    int stclt, stcth;
+                    cout <<"Ma mon hoc: "; cin.ignore(); getline(cin, mmh);
+                    cout << "Ten mon hoc: "; cin.ignore(); getline(cin, tenmh);
+                    cout << "So tin chi ly thuyet: "; cin >> stclt;
+                    cout << "So tin chi thuc hanh: "; cin >> stcth;
+                    if(mmh != "") mhhc.MAMH = mamh;
+                    if(tenmh != "") mhhc.TENMH = tenmh;
+                    if(stclt != 0) mhhc.STCLT = stclt;
+                    if(stcth != 0) mhhc.STCTH = stcth;
+
+                    DSMH = insertDanhSachMonHoc(DSMH, mhhc);
+                    goto capnhatmonhoc;
+
                 }
                 case 0:
-                    goto capnhatmonhoc;
+                    goto menu;
                 default:
                     break;
                 }

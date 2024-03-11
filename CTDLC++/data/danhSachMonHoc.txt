@@ -1,9 +1,8 @@
 BAS1204@Giai tich 2@3@1@
 BAS1151@Kinh te chinh tri Mac - Lenin@2@1@
 BAS1107@Giao duc the chat 2@2@1@
-BAS1105-7@Giao duc quoc phong va an ninh@7@1@
-1@hong@1@1@
 BAS1106@Giao duc the chat 1@2@2@
+BAS1105-7@Giao duc quoc phong va an ninh@7@1@
 BAS1150@Triet hoc Mac - Lenin@3@0@
 BAS1122@Tu tuong Ho Chi Minh@2@1@
 BAS1158@Tieng Anh (Course 2)@4@1@
