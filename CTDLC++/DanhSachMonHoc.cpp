@@ -15,6 +15,8 @@ struct DanhSachMonHoc
 	struct DanhSachMonHoc* leftChild;
 	struct DanhSachMonHoc* rightChild;
 	int height;
+	// void printTree(DanhSachMonHoc* root);
+	// DanhSachMonHoc* insertDanhSachMonHoc(DanhSachMonHoc* node, MH data);
 };
 
 int max(int a, int b);
