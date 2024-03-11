@@ -141,7 +141,8 @@ DanhSachMonHoc* TimKiemTheoMAMH(DanhSachMonHoc* root, string MAMH)
   	}
 }
 
-void printTree(DanhSachMonHoc* root) {
+void printTree(DanhSachMonHoc* root) 
+{
 	if (root != NULL) {
 		cout << root->data.MAMH << " " << root->data.TENMH << " " << root->data.STCLT << " " << root->data.STCTH << endl;
 		printTree(root->leftChild);
@@ -149,23 +150,63 @@ void printTree(DanhSachMonHoc* root) {
 	}
 }
 
-// int main()
-// {
-//     //du lieu test
-// 	MH mh1, mh2, mh3, mh4;
-// 	mh1.MAMH = "01"; mh1.STCLT = 1; mh1.STCTH = 2; mh1.TENMH = "Toan";
-// 	mh2.MAMH = "02"; mh1.STCLT = 2; mh1.STCTH = 2; mh1.TENMH = "Toangt";
-// 	mh3.MAMH = "03"; mh1.STCLT = 3; mh1.STCTH = 3; mh1.TENMH = "Toancc";
-// 	mh4.MAMH = "04"; mh1.STCLT = 4; mh1.STCTH = 2; mh1.TENMH = "Toancc2";
+DanhSachMonHoc* deleteNode(DanhSachMonHoc* node, string MAMH) 
+{
+  if (node == nullptr) 
+  {
+    return nullptr;
+  }
 
-// 	DanhSachMonHoc *root = NULL;
-// 	root = insertDanhSachMonHoc(root, mh1);
-// 	root = insertDanhSachMonHoc(root, mh2);
-// 	root = insertDanhSachMonHoc(root, mh3);
-// 	root = insertDanhSachMonHoc(root, mh4);
-	
-// 	printf("AVL Tree: ");
-//    	printTree(root);
+  if (MAMH < node->data.MAMH) 
+  {
+    node->leftChild = deleteNode(node->leftChild, MAMH);
+  } else if (MAMH > node->data.MAMH) {
+    node->rightChild = deleteNode(node->rightChild, MAMH);
+  } 
+  else
+  {
+    if (node->leftChild == nullptr) 
+	{
+      DanhSachMonHoc* temp = node->rightChild;
+      delete node;
+      return temp;
+    } 
+	else if (node->rightChild == nullptr) 
+	{
+      DanhSachMonHoc* temp = node->leftChild;
+      delete node;
+      return temp;
+    }
 
-//    	return 0;
-// }
+    DanhSachMonHoc* temp = minValueNode(node->rightChild);
+    node->data = temp->data;
+    node->rightChild = deleteNode(node->rightChild, temp->data.MAMH);
+  }
+
+  int balance = getBalance(node);
+
+  if (balance > 1 && getBalance(node->leftChild) >= 0) 
+  {
+    return rightRotate(node);
+  }
+
+  if (balance > 1 && getBalance(node->leftChild) < 0) 
+  {
+    node->leftChild = leftRotate(node->leftChild);
+    return rightRotate(node);
+  }
+
+  if (balance < -1 && getBalance(node->rightChild) <= 0) 
+  {
+    return leftRotate(node);
+  }
+
+  if (balance < -1 && getBalance(node->rightChild) > 0) 
+  {
+    node->rightChild = rightRotate(node->rightChild);
+    return leftRotate(node);
+  }
+
+  return node;
+}
+

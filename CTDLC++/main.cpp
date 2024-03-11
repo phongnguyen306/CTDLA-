@@ -146,6 +146,15 @@ int main()
                 case 2:
                 {
                     string mamh; cin.ignore(); getline(cin, mamh);
+                    for(int i = 1; i < 4; i++)
+                        for(int j = 1; j < 11; j++)
+                            if(DSLTC->TimLopTinChiTheoMAMH(mamh,i,j) != NULL)
+                            {
+                                cout << "Mon hoc nay da co lop tin chi hay chinh lop tc truoc khi xoa! ";
+                                goto capnhatmonhoc;
+                            }
+                    DSMH = deleteNode(DSMH,mamh);
+                    printTree(DSMH);
                     
                 }
                 case 0:
