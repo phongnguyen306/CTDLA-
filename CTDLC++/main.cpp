@@ -1,4 +1,6 @@
 #include "DocGhiXoaFile.cpp"
+#include <stack>
+
 
 int main()
 {
@@ -18,6 +20,7 @@ int main()
         << "3. Nhap sinh vien" << endl
         << "4. " << endl
         << "5. Cap Nhat Mon Hoc." << endl
+        << "6. In danh sach mon hoc." << endl
        << "0. Thoat! " << endl; 
     int i; cin >> i;
 
@@ -109,7 +112,7 @@ int main()
         case 5:
         {
         capnhatmonhoc: 
-            printTree(DSMH);
+            DSMH->InDS(DSMH);
             cout << "\t===5. Cap nhat mon hoc===\nBan muon lam gi? \n\t1. Them mon\n\t2. Xoa mon\n\t3. Hieu chinh\n\t0. Thoat!\n";
             int tmp; cin >> tmp;
             switch (tmp)
@@ -138,7 +141,7 @@ int main()
 
                     cout <<"Them Lop Thanh Cong!" << endl;
 
-                    printTree(DSMH);
+                    DSMH->InDS(DSMH);
 
                     goto capnhatmonhoc;
                     break;
@@ -154,7 +157,7 @@ int main()
                                 goto capnhatmonhoc;
                             }
                     DSMH = deleteNode(DSMH,mamh);
-                    printTree(DSMH);
+                    DSMH->InDS(DSMH);
                     goto capnhatmonhoc;
                 }
                 case 3:
@@ -181,10 +184,50 @@ int main()
                 case 0:
                     goto menu;
                 default:
+                    cout << "Ban dan nhap sai!"<< endl;
+                    goto capnhatmonhoc;
                     break;
                 }
             break;
         }
+        case 6:
+        {
+            cout << "\t1. In theo mamh:\n\t2. In theo tenmh: \n\t0. Thoat! \n";
+            int i; cin >> i;
+            switch (i)
+            {
+                case 1:
+                {
+                    DSMH->InDS(DSMH);
+                    goto menu;
+                    break;
+                }
+                case 2:
+                {
+                    DanhSachMonHoc* DSMHT;
+                    DanhSachMonHoc* tmp = DSMH;
+
+                    stack<DanhSachMonHoc*> s;
+                    while (tmp != nullptr || !s.empty()) 
+                    {
+                        while (tmp != nullptr) 
+                        {
+                            DSMHT = insertDanhSachMonHocT(DSMHT, tmp->data);
+                            s.push(tmp);
+                            tmp = tmp->leftChild;
+                        }
+                        tmp = s.top();
+                        s.pop();
+                        tmp = tmp->rightChild;              
+                    }
+
+                    DSMHT->InDS(DSMHT);
+                    delete(DSMHT);
+                    delete(tmp);
+                }
+            }
+        }
+        
         case 0:
             goto thoat;
             break;
@@ -210,5 +253,4 @@ int main()
     delete DSSV;
     delete DSLTC;
     return 0;
-    
 }

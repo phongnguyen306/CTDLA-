@@ -15,8 +15,7 @@ struct DanhSachMonHoc
 	struct DanhSachMonHoc* leftChild;
 	struct DanhSachMonHoc* rightChild;
 	int height;
-	// void printTree(DanhSachMonHoc* root);
-	// DanhSachMonHoc* insertDanhSachMonHoc(DanhSachMonHoc* node, MH data);
+	void InDS(DanhSachMonHoc* root);
 };
 
 int max(int a, int b);
@@ -111,6 +110,45 @@ DanhSachMonHoc* insertDanhSachMonHoc(DanhSachMonHoc* node, MH data)
 	return node;
 }
 
+DanhSachMonHoc* insertDanhSachMonHocT(DanhSachMonHoc* node, MH data)
+{
+	if (node == NULL)
+		return (newNode(data));
+
+	if (data.TENMH < node->data.TENMH)
+		node->leftChild = insertDanhSachMonHocT(node->leftChild, data);
+
+	else if (data.TENMH > node->data.TENMH)
+		node->rightChild = insertDanhSachMonHocT(node->rightChild, data);
+
+	else
+		return node;
+
+	node->height = 1 + max(height(node->leftChild), height(node->rightChild));
+
+	int balance = getBalance(node);
+	if (balance > 1 && data.TENMH < node->leftChild->data.TENMH)
+		return rightRotate(node);
+
+	if (balance < -1 && data.TENMH > node->rightChild->data.TENMH)
+		return leftRotate(node);
+
+	if (balance > 1 && data.TENMH > node->leftChild->data.TENMH)
+	{
+		node->leftChild = leftRotate(node->leftChild);
+		return rightRotate(node);
+
+	}
+
+	if (balance < -1 && data.TENMH < node->rightChild->data.TENMH)
+	{
+		node->rightChild = rightRotate(node->rightChild);
+		return leftRotate(node);
+	}
+
+	return node;
+}
+
 struct DanhSachMonHoc* minValueNode(struct DanhSachMonHoc* node)
 {
 	struct DanhSachMonHoc* current = node;
@@ -141,13 +179,16 @@ DanhSachMonHoc* TimKiemTheoMAMH(DanhSachMonHoc* root, string MAMH)
   	}
 }
 
-void printTree(DanhSachMonHoc* root) {
-	if (root != NULL) {
-		cout << root->data.MAMH << " " << root->data.TENMH << " " << root->data.STCLT << " " << root->data.STCTH << endl;
-		printTree(root->leftChild);
-		printTree(root->rightChild);
+void DanhSachMonHoc::InDS(DanhSachMonHoc* root)
+{
+	if(root != NULL)
+	{
+		InDS(root->leftChild);
+		cout <<root->data.MAMH << " " << root->data.TENMH << " " << root->data.STCLT << " " << root->data.STCTH << endl;
+		InDS(root->rightChild);
 	}
 }
+
 
 DanhSachMonHoc* deleteNode(DanhSachMonHoc* node, string MAMH) 
 {
