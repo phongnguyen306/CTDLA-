@@ -35,7 +35,10 @@ struct DanhSachDangKy {
 
     DanhSachDangKy() {
         head = nullptr;
+        soLuong = 0;
     }
+
+    int soLuong;
 
 
     void themCuoi(DangKy dataDK) {
@@ -51,6 +54,7 @@ struct DanhSachDangKy {
             temp = temp->next;
         }
         temp->next = newNode;
+        soLuong++;
     }
 
     void xoaDau() {
@@ -61,6 +65,7 @@ struct DanhSachDangKy {
         Node* temp = head;
         head = head->next;
         delete temp;
+        soLuong--;
     }
 
     void xoaCuoi() {
@@ -80,6 +85,7 @@ struct DanhSachDangKy {
         Node* lastNode = temp->next;
         temp->next = nullptr;
         delete lastNode;
+        soLuong--;
     }
 
 

@@ -76,8 +76,6 @@ struct DanhSachLopTinChi
 		return true;
 	}
 
-
-
 	LopTinChi* TimLopTinChi(int MALOPTC)
 	{
     int left = 0, right = SoLuongLop - 1;
@@ -111,8 +109,9 @@ struct DanhSachLopTinChi
 	{
 		for(int i = 0; i < SoLuongLop; i++)
 		{
-			cout << DanhSach[i]->MALOPTC << " " << DanhSach[i]->MAMH <<" "<< TimKiemTheoMAMH(root,DanhSach[i]->MAMH)->data.TENMH <<DanhSach[i]->SoSVMax  <<" "<< DanhSach[i]->SoSVMin <<" "<<DanhSach[i]->HuyLop<< endl;
+			cout << DanhSach[i]->MAMH <<" "<< TimKiemTheoMAMH(root,DanhSach[i]->MAMH)->data.TENMH << " " <<DanhSach[i]->Nhom <<" "<< DanhSach[i]->DSDK->soLuong << " "<< DanhSach[i]->SoSVMax - DanhSach[i]->DSDK->soLuong << endl;
 		}
+		return;
 	}
 
 	void xoaLopTinChi(int MALOPTC)
@@ -207,4 +206,15 @@ struct DanhSachLopTinChi
 		return;
 	}
 
+	DanhSachLopTinChi* locDanhSach(DanhSachLopTinChi* DS, int NK, int HK)
+	{
+		DanhSachLopTinChi* DSloc;
+		for(int i = 0; i < SoLuongLop; i++)
+		{
+			LopTinChi* lop = DS->DanhSach[i];
+			if(lop->NienKhoa == NK && lop->HocKy == HK)
+				ThemLopTinChi(DSloc, lop);
+		}
+		return DSloc;
+	}
 };

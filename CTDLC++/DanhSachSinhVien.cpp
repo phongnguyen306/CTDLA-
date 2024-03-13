@@ -99,7 +99,8 @@ struct DanhSachSinhVien
 		}
 	}
 
-	void DeleteFirstNode() {
+	void DeleteFirstNode() 
+	{
     if (head == nullptr) {
         return;
     }
@@ -112,8 +113,21 @@ struct DanhSachSinhVien
 
     soLuong--;
 	return;
-}
+	}
 
+	SinhVien* timKiemTheoMaSV(DanhSachSinhVien* ds, string MASV)
+	{
+		Node* tmp = ds->head;
+		while (tmp != NULL)
+		{
+			if(tmp->sv.MASV == MASV)
+			{
+				return &(tmp->sv);
+			}
+			tmp = tmp->next;
+		}
+		return NULL;		
+	}
 
 };
 

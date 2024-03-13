@@ -1,6 +1,8 @@
 #include "DocGhiXoaFile.cpp"
 #include <stack>
 
+void inMenu();
+void inCapNhat();
 
 int main()
 {
@@ -14,14 +16,7 @@ int main()
     
     //=== xu ly du lieu tai day ===
     menu:
-    cout << "===Menu===" << endl
-        << "1. Cap Nhat Lop Tin Chi." << endl
-        << "2. In danh sach sinh vien dang ky theo lop tin chi" << endl
-        << "3. Nhap sinh vien" << endl
-        << "4. " << endl
-        << "5. Cap Nhat Mon Hoc." << endl
-        << "6. In danh sach mon hoc." << endl
-       << "0. Thoat! " << endl; 
+    inMenu();
     int i; cin >> i;
 
     switch (i)
@@ -29,17 +24,12 @@ int main()
         case 1:
         {//cau a
             capnhat:
-            cout << "1. Cap Nhat Lop Tin Chi." << endl
-                << "\t1. Them lop tin chi" << endl
-                << "\t2. Xoa lop tin chi" << endl
-                << "\t3. Hieu chinh" << endl
-                << "\t4. Den menu" <<endl;
+            inCapNhat();
             int tmp; cin >> tmp;
             switch (tmp)
             {
                 case 1:
                 {
-                    nhapmamh:
                     string mamh; cin.ignore(); getline(cin, mamh);
                     int hocky; cin >> hocky;
                     int nhom; cin >> nhom;
@@ -47,7 +37,7 @@ int main()
                     while (TimKiemTheoMAMH(DSMH, mamh) == NULL)
                     {
                         cout << "Mon hoc nay khong ton tai"<< endl;
-                        goto capnhat;
+                        goto capnhat;   
                     }
 
                     if(DSLTC->TimLopTinChiTheoMAMH(mamh, hocky, nhom) == nullptr)
@@ -61,7 +51,6 @@ int main()
                         goto capnhat;
                     }
                     cout << "Them thanh cong!" << endl;
-                    goto menu;
                 }
 
                     break;
@@ -227,7 +216,20 @@ int main()
                 }
             }
         }
-        
+        case 7: 
+        {
+            cout << "===Dang ky lop tin chi===\nNhap ma sinh vien: ";
+            string masv; cin.ignore(); getline(cin, masv);
+            SinhVien* tmp = DSSV->timKiemTheoMaSV(DSSV,masv);
+            cout << tmp->MALOP << " " << tmp->TEN << " " << tmp->PHAI << "\nNhap nien khoa: ";
+            int nienkhoa, hocky; 
+            cin >> nienkhoa;
+            cout << "Hoc Ky: "; cin >> hocky;
+            DanhSachLopTinChi* DS = DSLTC->locDanhSach(DSLTC, nienkhoa, hocky);
+            DS->inDanhSachLopTinChi(DSMH);
+            
+
+        }
         case 0:
             goto thoat;
             break;
@@ -253,4 +255,27 @@ int main()
     delete DSSV;
     delete DSLTC;
     return 0;
+}
+
+void inMenu()
+{
+    cout << "===Menu===" << endl
+        << "1. Cap Nhat Lop Tin Chi." << endl
+        << "2. In danh sach sinh vien dang ky theo lop tin chi" << endl
+        << "3. Nhap sinh vien" << endl
+        << "4. " << endl
+        << "5. Cap Nhat Mon Hoc." << endl
+        << "6. In danh sach mon hoc." << endl
+        << "0. Thoat! " << endl; 
+    return;
+}
+
+void inCapNhat()
+{
+    cout << "1. Cap Nhat Lop Tin Chi." << endl
+                << "\t1. Them lop tin chi" << endl
+                << "\t2. Xoa lop tin chi" << endl
+                << "\t3. Hieu chinh" << endl
+                << "\t4. Den menu" <<endl;
+    return;
 }
