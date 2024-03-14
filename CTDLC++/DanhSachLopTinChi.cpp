@@ -52,11 +52,15 @@ struct DanhSachLopTinChi
 		this->SoLuongLop = 0;
 	}
 
+	DanhSachLopTinChi(int so)
+	{
+		this->SoLuongLop = so;
+	}
+
 	bool ThemLopTinChi(DanhSachLopTinChi* DSLTC, LopTinChi* lop) 
 	{
-		if (SoLuongLop >= 10000) {
+		if (DSLTC->SoLuongLop >= 10000) 
 			return false;
-		}
 
 		LopTinChi* lopMoi = new LopTinChi(lop->MAMH,lop->NienKhoa, lop->HocKy, lop->Nhom, lop->SoSVMax, lop->SoSVMin);
 		if (lop->MALOPTC != 0) 
@@ -64,14 +68,10 @@ struct DanhSachLopTinChi
 		else 
 			lopMoi->MALOPTC = ++MALOP;
 
-		int i = SoLuongLop - 1;
-		while (i >= 0 && DSLTC->DanhSach[i]->MALOPTC > lopMoi->MALOPTC) {
-			DanhSach[i + 1] = DanhSach[i]; 
-			i--;
-		}
-		DanhSach[i + 1] = lopMoi;
+		int tmp = DSLTC->SoLuongLop;
+		DSLTC->DanhSach[tmp] = lopMoi;
 
-		SoLuongLop++;
+		(DSLTC->SoLuongLop)++;
 
 		return true;
 	}
@@ -206,15 +206,18 @@ struct DanhSachLopTinChi
 		return;
 	}
 
-	DanhSachLopTinChi* locDanhSach(DanhSachLopTinChi* DS, int NK, int HK)
+	DanhSachLopTinChi locDanhSach(DanhSachLopTinChi* DS, int NK, int HK)
 	{
-		DanhSachLopTinChi* DSloc;
-		for(int i = 0; i < SoLuongLop; i++)
+		DanhSachLopTinChi DStmp(0);
+		for(int i = 0; i < DS->SoLuongLop; i++)
 		{
-			LopTinChi* lop = DS->DanhSach[i];
-			if(lop->NienKhoa == NK && lop->HocKy == HK)
-				ThemLopTinChi(DSloc, lop);
+			LopTinChi lop = *(DS->DanhSach[i]);
+			if(lop.NienKhoa == NK && lop.HocKy == HK)
+				DStmp.ThemLopTinChi(&DStmp, &lop);	
+			else
+				continue;
 		}
-		return DSloc;
+		return DStmp;
 	}
 };
+

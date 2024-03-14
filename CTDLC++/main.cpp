@@ -10,7 +10,7 @@ int main()
     DSMH = docFileDanhSachMonHoc(DSMH);
     DanhSachSinhVien *DSSV; 
     DSSV = docFileDanhSachSinhVien(DSSV);
-    DanhSachLopTinChi *DSLTC;
+    DanhSachLopTinChi *DSLTC(0);
     DSLTC = docFileDanhSachLopTinChi(DSLTC);
     docFileDanhSachDangKy(DSLTC);   
     
@@ -213,22 +213,36 @@ int main()
                     DSMHT->InDS(DSMHT);
                     delete(DSMHT);
                     delete(tmp);
+                    goto menu;
                 }
             }
         }
-        case 7: 
+        case 7: //Dang ky lop tin chi
         {
-            cout << "===Dang ky lop tin chi===\nNhap ma sinh vien: ";
+            cout << "===Dang ky lop tin chi===";
+
+            nhapmasinhvien:
+            cout << "\nNhap ma sinh vien: ";
             string masv; cin.ignore(); getline(cin, masv);
             SinhVien* tmp = DSSV->timKiemTheoMaSV(DSSV,masv);
-            cout << tmp->MALOP << " " << tmp->TEN << " " << tmp->PHAI << "\nNhap nien khoa: ";
+            
+            if(tmp  == NULL)
+            {
+                cout <<"Sinh Vien Khong Ton Tai\n";
+                goto nhapmasinhvien;
+            }
+
+            cout << tmp->MALOP << " " << tmp->HO << " "<< tmp->TEN << " " << tmp->PHAI << "\nNhap nien khoa: ";
             int nienkhoa, hocky; 
             cin >> nienkhoa;
             cout << "Hoc Ky: "; cin >> hocky;
-            DanhSachLopTinChi* DS = DSLTC->locDanhSach(DSLTC, nienkhoa, hocky);
-            DS->inDanhSachLopTinChi(DSMH);
+            DanhSachLopTinChi DS;
+            DS = DSLTC->locDanhSach(DSLTC, nienkhoa, hocky);
+            if(DS.SoLuongLop != 0)
+                DS.inDanhSachLopTinChi(DSMH);
+            else  
+                cout << "Khong co lop nao!\n";
             
-
         }
         case 0:
             goto thoat;
@@ -238,8 +252,6 @@ int main()
             goto menu;
             break;
     }
-
-
 
     //=== ket thuc xu ly du lieu ===
     thoat:
@@ -266,6 +278,7 @@ void inMenu()
         << "4. " << endl
         << "5. Cap Nhat Mon Hoc." << endl
         << "6. In danh sach mon hoc." << endl
+        << "7. Dang ky lop tin chi." << endl
         << "0. Thoat! " << endl; 
     return;
 }
