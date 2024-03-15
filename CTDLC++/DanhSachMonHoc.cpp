@@ -189,7 +189,6 @@ void DanhSachMonHoc::InDS(DanhSachMonHoc* root)
 	}
 }
 
-
 DanhSachMonHoc* deleteNode(DanhSachMonHoc* node, string MAMH) 
 {
   if (node == nullptr) 
@@ -200,7 +199,8 @@ DanhSachMonHoc* deleteNode(DanhSachMonHoc* node, string MAMH)
   if (MAMH < node->data.MAMH) 
   {
     node->leftChild = deleteNode(node->leftChild, MAMH);
-  } else if (MAMH > node->data.MAMH) {
+  } 
+  else if (MAMH > node->data.MAMH) {
     node->rightChild = deleteNode(node->rightChild, MAMH);
   } 
   else

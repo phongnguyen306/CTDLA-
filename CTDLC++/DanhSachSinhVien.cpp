@@ -55,7 +55,7 @@ struct DanhSachSinhVien
 		}
 
 		Node* temp = head;
-		Node* tempp;
+		Node* tempp = NULL;
 		
 		while (temp !=nullptr)
 		{

@@ -8,7 +8,7 @@ int main()
 {
     DanhSachMonHoc *DSMH = NULL;
     DSMH = docFileDanhSachMonHoc(DSMH);
-    DanhSachSinhVien *DSSV; 
+    DanhSachSinhVien *DSSV = NULL; 
     DSSV = docFileDanhSachSinhVien(DSSV);
     DanhSachLopTinChi *DSLTC(0);
     DSLTC = docFileDanhSachLopTinChi(DSLTC);
@@ -21,7 +21,7 @@ int main()
 
     switch (i)
     {
-        case 1:
+        case 1: //Mo lop tin chi
         {//cau a
             capnhat:
             inCapNhat();
@@ -83,7 +83,7 @@ int main()
             }
         //Ket thuc cau a
         }
-        case 2:
+        case 2: //In danh sach sinh vien
         {
             cout << "2. In danh sach sinh vien dang ky theo lop tin chi" << endl;\
             cout << "===Danh Sanh Sinh Vien Dang Ky===" << endl;
@@ -98,7 +98,15 @@ int main()
             }
             goto menu;
         }
-        case 5:
+        case 3: //Cap nhat sinh vien cua mot lop
+        {
+
+        }
+        case 4: //In DSSV mot lop
+        {
+            
+        }
+        case 5: //Nhap mon hoc
         {
         capnhatmonhoc: 
             DSMH->InDS(DSMH);
@@ -179,7 +187,7 @@ int main()
                 }
             break;
         }
-        case 6:
+        case 6: //In danh sach mon hoc
         {
             cout << "\t1. In theo mamh:\n\t2. In theo tenmh: \n\t0. Thoat! \n";
             int i; cin >> i;
@@ -193,7 +201,7 @@ int main()
                 }
                 case 2:
                 {
-                    DanhSachMonHoc* DSMHT;
+                    DanhSachMonHoc* DSMHT = NULL;
                     DanhSachMonHoc* tmp = DSMH;
 
                     stack<DanhSachMonHoc*> s;
@@ -244,9 +252,11 @@ int main()
                 cout << "Khong co lop nao!\n";
             
         }
-        case 0:
+        case 0: //Thoat
+        {
             goto thoat;
             break;
+        }
         default:
             cout << "Ban da nhap sai!" << endl;
             goto menu;
