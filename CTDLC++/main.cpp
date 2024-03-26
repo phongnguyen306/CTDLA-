@@ -21,24 +21,32 @@ int main()
 
     switch (i)
     {
-        case 1: //Mo lop tin chi
-        {//cau a
+        case 1: //a. Mo lop tin chi
+        {
             capnhat:
             inCapNhat();
             int tmp; cin >> tmp;
             switch (tmp)
             {
-                case 1:
+                case 1://Them lop tin chi
                 {
-                    string mamh; cin.ignore(); getline(cin, mamh);
-                    int hocky; cin >> hocky;
-                    int nhom; cin >> nhom;
+                    string mamh; cout << "Nhap MMH: "; cin.ignore(); getline(cin, mamh);
+                    int hocky;
 
                     while (TimKiemTheoMAMH(DSMH, mamh) == NULL)
                     {
-                        cout << "Mon hoc nay khong ton tai"<< endl;
+                        cout << "Mon hoc nay khong ton tai!"<< endl;
                         goto capnhat;   
                     }
+
+                    do
+                    {
+                        cout << "Nhap hoc ky: "; cin >> hocky;
+                    }while(hocky < 0 && || hocky > 3);
+
+                    int nhom; cout << "Nhap nhom: "; cin >> nhom;
+
+                    
 
                     if(DSLTC->TimLopTinChiTheoMAMH(mamh, hocky, nhom) == nullptr)
                     {
@@ -51,17 +59,18 @@ int main()
                         goto capnhat;
                     }
                     cout << "Them thanh cong!" << endl;
-                }
-
+                
                     break;
-                case 2:
+                }
+                case 2://Xoa lop tin chi
                 {
+                    cout << "Nhap ma lop can xoa: ";
                     int maloptc; cin >> maloptc;
                     DSLTC->xoaLopTinChi(maloptc);
                     goto menu;
                     break;
                 }
-                case 3:
+                case 3://Hieu chinh lop tinh chi
                 {
                     DSLTC->inDanhSachLopTinChi(DSMH);
                     cout << endl;
@@ -71,7 +80,7 @@ int main()
                     DSLTC->inDanhSachLopTinChi(DSMH);
                     goto capnhat;
                 }
-                case 4:
+                case 4://Thoat mo lop tin chi
                 { 
                     goto menu;
                     break;
@@ -250,6 +259,7 @@ int main()
                 DS.inDanhSachLopTinChi(DSMH);
             else  
                 cout << "Khong co lop nao!\n";
+            
             
         }
         case 0: //Thoat
