@@ -37,14 +37,18 @@ void themSV(DanhSachLopTinChi* DSLTC, DanhSachMonHoc* DSMH) {
 		cout<<"Khong tim thay lop tin chi!"<<endl;
 		return;
 	}
-	
+	DangKy* data;
 	cout<<"Nhap ma sinh vien: ";
+	cin.ignore();
 	getline(cin, mssv);
+	data->MASV = mssv;
 	cout<<"Nhap ten sinh vien: ";
 	cin.ignore();
 	getline(cin, tensv);
 	cout<<"Nhap diem: ";
 	cin>>score;
+	data->DIEM = score;
+	lop->DSDK->themCuoi(DangKy *data);
 	
 //	DangKy *DangKy(mssv, score);
 	

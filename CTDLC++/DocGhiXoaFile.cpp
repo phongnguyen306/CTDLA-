@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -7,6 +8,7 @@
 #include "DanhSachDangKy.cpp"
 #include "DanhSachLopTinChi.cpp"
 #include "DanhSachSinhVien.cpp"
+#include "HienChinhSinhVien.cpp"
 
 
 DanhSachMonHoc* docFileDanhSachMonHoc(DanhSachMonHoc* DSMH)
