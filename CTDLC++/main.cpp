@@ -1,5 +1,4 @@
 #include "DocGhiXoaFile.cpp"
-#include "HienChinhSinhVien.cpp"
 #include <stack>
 
 void inMenu();
@@ -105,7 +104,7 @@ int main()
 			int tmp;
 			do {
 				cout << "===3. Hieu chinh sinh vien===" << endl;
-				cout << "1. Them sinh vien\n\t2. Sua thong tin sinh vien\n\t3. Xoa sinh vien\n\t0. Quay lai!!!";
+				cout << "\t1. Them sinh vien\n\t2. Sua thong tin sinh vien\n\t3. Xoa sinh vien\n\t0. Quay lai!!!\n";
 				cin>>tmp;
 				switch(tmp) {
 					case 1:
@@ -120,11 +119,11 @@ int main()
 						}
 					case 3:
 						{
-							xoaSinhVien(DSLTC, DSMH);
+							xoaSinhVienKhoiLop(DSLTC, DSMH);
 							break;
 						}
 				}
-			} while(tmp != 0)
+			} while(tmp != 0);
 			goto menu;
         }
         case 4: //In DSSV mot lop
