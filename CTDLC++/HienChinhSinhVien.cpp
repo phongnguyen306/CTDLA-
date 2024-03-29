@@ -1,9 +1,11 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
 #include "DanhSachLopTinChi.cpp"
 #include "DanhSachSinhVien.cpp"
 #include "DanhSachMonHoc.cpp"
+#include "DanhSachDangKy.cpp"
 
 using namespace std;
 
@@ -13,6 +15,7 @@ void themSV(DanhSachLopTinChi* DSLTC, DanhSachMonHoc* DSMH) {
 	float score;
 	
 	cout<<"Nhap ma mon hoc: ";
+	cin.ignore();
 	getline(cin, mamh);
 	
 	DanhSachMonHoc* monhoc = TimKiemTheoMAMH(DSMH, mamh);
@@ -43,10 +46,10 @@ void themSV(DanhSachLopTinChi* DSLTC, DanhSachMonHoc* DSMH) {
 	cout<<"Nhap diem: ";
 	cin>>score;
 	
-	DangKy* sinhVien(mssv, score);
+//	DangKy *DangKy(mssv, score);
 	
 	
-	lop->DSDK->timKiem(sinhVien);
+	lop->DSDK->timKiem(mssv);
 	
 	cout<<"Da them sinh vien vao lop tin chi!"<<endl;
 }
