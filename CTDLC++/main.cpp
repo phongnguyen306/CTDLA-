@@ -109,7 +109,27 @@ int main()
 				switch(tmp) {
 					case 1:
 						{
-							themSV(DSLTC, DSMH);
+							int maLop;
+							
+							
+							
+							string maSV;
+							float diem;
+							
+							cout<<"Nhap ma sinh vien: ";
+							cin>>maSV;
+							
+							cout<<"Nhap diem: ";
+							cin>>diem;
+							
+							cout<<"Nhap ma lop: ";
+							cin>>maLop;
+							LopTinChi* lop = DSLTC->TimLopTinChi(maLop);
+							if(lop != nullptr) {
+								addSV(lop, maSV, diem);
+							} else {
+								cout<<"Khong tim thay lop tin chi!"<<endl;
+							}
 							break;
 						}
 					case 2:
@@ -128,7 +148,12 @@ int main()
         }
         case 4: //In DSSV mot lop
         {
-            
+            	int maLop;
+            	cout<<"Nhap lop can in danh sach: ";
+            	cin>>maLop;
+            	LopTinChi* lop = DSLTC->TimLopTinChi(maLop);
+            	indanhSachSVtheoHoTen(lop);
+            	goto menu;
         }
         case 5: //Nhap mon hoc
         {
@@ -309,7 +334,7 @@ void inMenu()
         << "1. Cap Nhat Lop Tin Chi." << endl
         << "2. In danh sach sinh vien dang ky theo lop tin chi" << endl
         << "3. Nhap sinh vien" << endl
-        << "4. " << endl
+        << "4. In danh sach sinh vien theo lop tin chi." << endl
         << "5. Cap Nhat Mon Hoc." << endl
         << "6. In danh sach mon hoc." << endl
         << "7. Dang ky lop tin chi." << endl

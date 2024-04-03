@@ -9,54 +9,32 @@
 
 using namespace std;
 
-void themSV(DanhSachLopTinChi* DSLTC, DanhSachMonHoc* DSMH) {
-	string mamh, mssv, tensv;
-	
-	float score;
-	
-	cout<<"Nhap ma mon hoc: ";
-	cin.ignore();
-	getline(cin, mamh);
-	
-	DanhSachMonHoc* monhoc = TimKiemTheoMAMH(DSMH, mamh);
-	
-	if(monhoc == nullptr) {
-		cout<<"Mon hoc khong ton tai.";
-		return;
-	}
-	
-	int hocKy, nhom;
-	cout<<"Nhap hoc ky: ";
-	cin>>hocKy;
-	cout<<"Nhap nhom: ";
-	cin>>nhom;
-	
-	
-	LopTinChi* lop = DSLTC->TimLopTinChiTheoMAMH(mamh, hocKy, nhom);
+
+///////////////////////////// Start fix //////////////////////////////
+
+
+
+
+void addSV(LopTinChi* lop, string maSV, float diem) {
 	if(lop == nullptr) {
 		cout<<"Khong tim thay lop tin chi!"<<endl;
 		return;
 	}
-	DangKy* data;
-	cout<<"Nhap ma sinh vien: ";
-	cin.ignore();
-	getline(cin, mssv);
-	data->MASV = mssv;
-	cout<<"Nhap ten sinh vien: ";
-	cin.ignore();
-	getline(cin, tensv);
-	cout<<"Nhap diem: ";
-	cin>>score;
-	data->DIEM = score;
-	lop->DSDK->themCuoi(DangKy *data);
 	
-//	DangKy *DangKy(mssv, score);
+	DangKy sinhVien(maSV, diem);
 	
+	lop->DSDK->themCuoi(sinhVien);
 	
-	lop->DSDK->timKiem(mssv);
-	
-	cout<<"Da them sinh vien vao lop tin chi!"<<endl;
+	cout<<"Da them sinh vien vao danh sach dang ky cua lop "<<lop->MALOPTC<<" - "<<lop->MAMH<<endl;
 }
+
+
+
+
+///////////////////////////// End fix //////////////////////////////
+
+
+
 
 void suaThongTinSinhVien(DanhSachLopTinChi* DSLTC, DanhSachMonHoc* DSMH) {
 	string mamh, masv;
@@ -112,6 +90,7 @@ void xoaSinhVienKhoiLop(DanhSachLopTinChi* DSLTC, DanhSachMonHoc* DSMH) {
 	string mamh, mssv;
 	
 	cout<<"Nhap ma mon hoc: ";
+	cin.ignore();
 	getline(cin, mamh);
 	
 	DanhSachMonHoc* monhoc = TimKiemTheoMAMH(DSMH, mamh);
@@ -125,6 +104,7 @@ void xoaSinhVienKhoiLop(DanhSachLopTinChi* DSLTC, DanhSachMonHoc* DSMH) {
 	cout<<"Nhap hoc ky: ";
 	cin>>hocKy;
 	cout<<"Nhap nhom: ";
+	cin>>nhom;
 	
 	LopTinChi* lop = DSLTC->TimLopTinChiTheoMAMH(mamh, hocKy, nhom);
 	
@@ -134,6 +114,7 @@ void xoaSinhVienKhoiLop(DanhSachLopTinChi* DSLTC, DanhSachMonHoc* DSMH) {
 	}
 	
 	cout<<"Nhap ma sinh vien can xoa: ";
+	cin.ignore();
 	getline(cin,mssv);
 	
 	bool find = false;
@@ -161,5 +142,57 @@ void xoaSinhVienKhoiLop(DanhSachLopTinChi* DSLTC, DanhSachMonHoc* DSMH) {
 		cout<<"Da xoa."<<endl;
 	} else {
 		cout<<"Khong tim thay sinh vien trong lop tin chi!"<<endl;
+	}
+}
+
+
+////////////////in danh sach sinh vien theo thu tu/////////////////////////
+
+void swapSV(DangKy* sv1, DangKy* sv2) {
+	DangKy temp = *sv1;
+	*sv1 = *sv2;
+	*sv2 = temp;
+}
+
+bool compareSV(const string& tenHo1, const string& tenHo2) {
+	return tenHo1 < tenHo2;
+}
+
+void sortSV(DangKy* dsSV[], int soluong) {
+	for(int i = 0; i < soluong - 1; i++) {
+		int minIndex = i;
+		for(int j = i + 1; j < soluong; j++) {
+			if(compareSV(dsSV[j]->MASV, dsSV[minIndex]->MASV)) {
+				minIndex = j;
+			}
+		}
+		if(minIndex != i) {
+			swapSV(dsSV[i], dsSV[minIndex]);
+		}
+	}
+}
+
+void indanhSachSVtheoHoTen(LopTinChi* lop) {
+	if(lop == nullptr) {
+		cout<<"Khong tim thay lop!!!!!!!\n";
+		return;
+	}
+	cout<<"Danh sach cua lop "<<lop->MALOPTC<<" - "<<lop->MAMH<<": "<<endl;
+	
+	int soLuongSV = lop->DSDK->soLuong;
+	
+	DangKy* dsSinhVien[soLuongSV];
+	
+	Node* temp = lop->DSDK->head;
+	
+	for(int i = 0; i < soLuongSV; i++) {
+		dsSinhVien[i] = &(temp->dataDK);
+		temp = temp->next;
+	}
+	
+	sortSV(dsSinhVien, soLuongSV);
+	
+	for(int i = 0; i < soLuongSV; i++) {
+		cout<<dsSinhVien[i]->MASV<<" "<<dsSinhVien[i]->DIEM<<" "<<dsSinhVien[i]->huyDangKy<<endl;
 	}
 }
